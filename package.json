@@ -1,0 +1,26 @@
+{
+  "name": "the-mind-game-server",
+  "version": "0.0.1",
+  "description": "Game Server for The Mind",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tehpsalmist/the-mind-game-server.git"
+  },
+  "keywords": [
+    "game",
+    "server",
+    "cards",
+    "websockets",
+    "graphql"
+  ],
+  "author": "Ben Steward <bstewardcodes@gmail.com> (tehpsalmist.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tehpsalmist/the-mind-game-server/issues"
+  },
+  "homepage": "https://github.com/tehpsalmist/the-mind-game-server#readme"
+}
