@@ -22,5 +22,18 @@
   "bugs": {
     "url": "https://github.com/tehpsalmist/the-mind-game-engine/issues"
   },
-  "homepage": "https://github.com/tehpsalmist/the-mind-game-engine#readme"
+  "homepage": "https://github.com/tehpsalmist/the-mind-game-engine#readme",
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link": "^1.2.12",
+    "apollo-link-http": "^1.5.15",
+    "apollo-link-ws": "^1.0.18",
+    "apollo-utilities": "^1.3.2",
+    "cross-fetch": "^3.0.4",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
+    "subscriptions-transport-ws": "^0.9.16",
+    "ws": "^7.1.0"
+  }
 }
