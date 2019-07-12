@@ -1,10 +1,12 @@
-const fetch = require('cross-fetch/polyfill')
+const fetch = require('cross-fetch/polyfill').default
 const { HttpLink } = require('apollo-link-http')
 const { WebSocketLink } = require('apollo-link-ws')
 const { getMainDefinition } = require('apollo-utilities')
 const { split } = require('apollo-link')
 const { InMemoryCache } = require('apollo-cache-inmemory')
 const { ApolloClient } = require('apollo-client')
+const gql = require('graphql-tag')
+
 const ws = require('ws')
 
 const { X_HASURA_ADMIN_SECRET_THE_MIND } = process.env
@@ -51,6 +53,57 @@ const client = new ApolloClient({
   resolvers: {}
 })
 
+const MASTER_QUERY = gql`
+  subscription games {
+    games(where: {_and: {started: {_eq: true}, finished: {_eq: false}}}) {
+      id
+      started
+      finished
+    }
+  }
+`
+
+const GAME = gql`
+  subscription game($gameId: Int!) {
+    games_by_pk(id: $gameId) {
+      id
+      name
+      player_count
+      players {
+        id
+        name
+        user_id
+        cards
+      }
+      lives
+      is_full
+      stars
+      created_at
+      finished_at
+      round {
+        number_of_cards
+        is_blind
+        reward
+      }
+      finished
+      owner_id
+      plays(order_by: {round_id: asc}) {
+        id
+        out_of_order
+        penalized
+        round_id
+        timestamp
+        value
+      }
+      ready
+      started
+    }
+  }
+`
+
 module.exports = {
-  client
+  client,
+  gql,
+  MASTER_QUERY,
+  GAME
 }

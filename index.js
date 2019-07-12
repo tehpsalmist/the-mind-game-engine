@@ -1,15 +1,5 @@
-const { client } = require('./ApolloClient')
-const gql = require('graphql-tag').default
-
-const MASTER_QUERY = gql`
-  subscription games {
-    games(where: {_and: {started: {_eq: true}, finished: {_eq: false}}}) {
-      id
-      started
-      finished
-    }
-  }
-`
+const { client, MASTER_QUERY } = require('./ApolloClient')
+const { evaluateSubscriptionStatus, setupSubscription } = require('./Subscriptions')
 
 client.subscribe({ query: MASTER_QUERY })
   .subscribe(
@@ -17,7 +7,13 @@ client.subscribe({ query: MASTER_QUERY })
       // paranoia
       const games = (data && data.data && data.data.games) || []
 
-      games.forEach(game => console.log(game.id))
+      games.forEach(game => {
+        const isRunning = evaluateSubscriptionStatus(game.id)
+
+        if (!isRunning) {
+          setupSubscription(game.id)
+        }
+      })
     },
     err => console.error(err)
   )
